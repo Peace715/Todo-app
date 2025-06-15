@@ -1,0 +1,23 @@
+<h1>Welcome <%= user.username %></h1>
+<form method="POST" action="/tasks/add">
+  <input name="title" placeholder="New Task" required />
+  <button type="submit">Add</button>
+</form>
+
+<ul>
+  <% tasks.forEach(task => { %>
+    <li>
+      <%= task.title %> - <%= task.status %>
+      <% if (task.status === 'pending') { %>
+        <form method="POST" action="/tasks/complete/<%= task._id %>" style="display:inline">
+          <button type="submit">Complete</button>
+        </form>
+      <% } %>
+      <form method="POST" action="/tasks/delete/<%= task._id %>" style="display:inline">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/logout">Logout</a>
